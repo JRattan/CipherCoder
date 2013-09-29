@@ -1,0 +1,59 @@
+﻿<Window x:Class="CipherCoder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cipher Coder" Height="500" Width="450" ResizeMode="CanMinimize" Icon="/CipherCoder;component/cipherCodersmall.ico">
+    <Window.Resources>
+        <Style x:Key="textBoxStyle" TargetType="TextBox">
+            <Style.Triggers>
+            <!-- **Figure out how to bind these textBoxes to the MenuItem checkbox textWrap** 
+                <DataTrigger Binding="{Binding ElementName=textWrap, Path=IsChecked}" Value="true">
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                </DataTrigger>
+            -->
+            </Style.Triggers>
+        </Style>
+        <ContextMenu x:Key="inputTextMenu">
+            <MenuItem Header="Cut" InputGestureText="Ctrl+X" Command="Cut" />
+            <MenuItem Header="Copy" InputGestureText="Ctrl+C" Command="Copy" />
+            <MenuItem Header="Paste" InputGestureText="Ctrl+V" Command="Paste" />
+            <MenuItem Header="Select All" InputGestureText="Ctrl+A" Command="SelectAll" />
+            <Separator />
+            <MenuItem Header="Use Text File" Name="useText" ToolTip="Uses a Text file to cipher." Click="importFile_Click" />
+            <MenuItem Header="Clear Text" Name="clearText1" ToolTip="Resets the program to its default setup." Click="clearText_Click" />
+        </ContextMenu>
+        <ContextMenu x:Key="outputTextMenu">
+            <MenuItem Header="Copy All" Name="copyAll" ToolTip="Copies all the text to the clipboard." Click="copyAll_Click" />
+            <MenuItem Header="Clear Text" Name="clearText2" ToolTip="Resets the program to its default setup." Click="clearText_Click" />
+            <Separator />
+            <MenuItem Header="Use Output as Input" Name="useOutput" ToolTip="Uses the output text as input." Click="switchBtn_Click" />
+            <MenuItem Header="Save Output" Name="saveOutput" ToolTip="Saves the ciphered output text as a .txt" Click="exportFile_Click" />
+        </ContextMenu>
+    </Window.Resources>
+    <Grid Background="{x:Null}">
+        <Button Content="Decrypt" Margin="341,209,0,0" Name="decryptBtn" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" Panel.ZIndex="3" Click="decryptBtn_Click" ToolTip="Decrypts the inputed text." />
+        <Button Content="Encrypt" Margin="260,209,0,0" Name="encryptBtn" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="75" Panel.ZIndex="3" Click="encryptBtn_Click" ToolTip="Encrypts the inputed text." />
+        <TextBox Margin="10,43,0,0" Name="inputText" Style="{StaticResource textBoxStyle}" ContextMenu="{StaticResource inputTextMenu}" HorizontalAlignment="Left" Width="406" Height="160" VerticalAlignment="Top" Panel.ZIndex="1" ToolTip="Input text to cipher here." DataContext="{Binding}" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" BorderThickness="2" FontFamily="Vrinda">
+        </TextBox>
+        <TextBox Margin="10,263,0,0" Name="outputText" Style="{StaticResource textBoxStyle}" ContextMenu="{StaticResource outputTextMenu}" Height="160" VerticalAlignment="Top" HorizontalAlignment="Left" Width="406" Focusable="False" IsReadOnlyCaretVisible="True" TextWrapping="Wrap" AllowDrop="False" ToolTip="Results of the cipher." VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" BorderThickness="2" AutoWordSelection="True" FontFamily="Vrinda">
+        </TextBox>
+        <TextBox Margin="65,210,0,0" Name="keyText" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="178" Panel.ZIndex="2" Text="CIPHER" ToolTip="Used for encrypting/decrypting the input text." CharacterCasing="Upper" FontFamily="Vrinda">
+        </TextBox>
+        <Label Content="Input Text" Margin="10,22,0,0" Name="label1" HorizontalAlignment="Left" Width="77" Height="28" VerticalAlignment="Top" />
+        <Label Content="Output Text" Margin="10,239,0,0" Name="label2" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="77" />
+        <Label Content="Keyword" Margin="10,208,0,0" Name="label3" Height="28" VerticalAlignment="Top" HorizontalAlignment="Left" Width="59" />
+        <DockPanel Height="100" HorizontalAlignment="Stretch" Margin="0" Name="dockPanel1" VerticalAlignment="Top" Width="Auto">
+            <Menu Height="23" Name="menu1" Width="Auto" DockPanel.Dock="Top" VerticalAlignment="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Import Text File" Name="importFile" ToolTip="Imports a text file as an input text." Click="importFile_Click" />
+                    <MenuItem Header="Export _Output to Text File" Name="exportFile" ToolTip="Saves the output generated as a .txt file." Click="exportFile_Click" />
+                    <Separator />
+                    <MenuItem Header="E_xit" Name="exit" Click="exit_Click" />
+                </MenuItem>
+                <MenuItem Header="_View">
+                    <MenuItem Header="Text Wrap" x:Name="textWrap" IsCheckable="True" IsChecked="True" Click="textWrap_Click" />
+                </MenuItem>
+                <MenuItem Header="_About" Name="about" Click="about_Click" />
+            </Menu>
+        </DockPanel>
+    </Grid>
+</Window>
